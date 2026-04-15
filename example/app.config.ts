@@ -1,9 +1,7 @@
-import type { ExpoConfig } from "@expo/config-types";
-import {
-	DEFAULT_SKADNETWORK_IDENTIFIERS,
-} from "@fumitakayamada/expo-applovin-max";
 import * as fs from "node:fs";
 import * as path from "node:path";
+import type { ExpoConfig } from "@expo/config-types";
+import { DEFAULT_SKADNETWORK_IDENTIFIERS } from "@fumitakayamada/expo-applovin-max";
 
 /**
  * Example app for `@fumitakayamada/expo-applovin-max`.
@@ -57,8 +55,12 @@ const iosSetupScriptExists = fs.existsSync(
 const adReview =
 	APPLOVIN_REPORT_KEY || iosSetupScriptExists
 		? {
-				...(APPLOVIN_REPORT_KEY ? { androidReportKey: APPLOVIN_REPORT_KEY } : {}),
-				...(iosSetupScriptExists ? { iosSetupScriptPath: IOS_SETUP_SCRIPT_REL } : {}),
+				...(APPLOVIN_REPORT_KEY
+					? { androidReportKey: APPLOVIN_REPORT_KEY }
+					: {}),
+				...(iosSetupScriptExists
+					? { iosSetupScriptPath: IOS_SETUP_SCRIPT_REL }
+					: {}),
 			}
 		: undefined;
 

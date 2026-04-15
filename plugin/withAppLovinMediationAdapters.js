@@ -208,7 +208,8 @@ function withAdMobAppIdAndroid(config, { admobAppId }) {
 
 		const hasAdMobId = application["meta-data"].some(
 			(meta) =>
-				meta.$?.["android:name"] === "com.google.android.gms.ads.APPLICATION_ID",
+				meta.$?.["android:name"] ===
+				"com.google.android.gms.ads.APPLICATION_ID",
 		);
 
 		if (!hasAdMobId) {
@@ -289,7 +290,8 @@ function withAppLovinSettingsRepos(config, { mavenRepositories }) {
 		);
 		if (match) {
 			const idx = match.index + match[0].length;
-			config.modResults.contents = gradle.slice(0, idx) + content + gradle.slice(idx);
+			config.modResults.contents =
+				gradle.slice(0, idx) + content + gradle.slice(idx);
 			console.log(
 				"[AppLovinMediationAdapters] ✓ Added repos to settings.gradle dependencyResolutionManagement",
 			);
@@ -312,7 +314,8 @@ function withAppLovinProjectRepos(config, { mavenRepositories }) {
 			const afterMatch = gradle.slice(allprojectsMatch.index);
 			const reposMatch = afterMatch.match(/repositories\s*\{/);
 			if (reposMatch) {
-				const idx = allprojectsMatch.index + reposMatch.index + reposMatch[0].length;
+				const idx =
+					allprojectsMatch.index + reposMatch.index + reposMatch[0].length;
 				config.modResults.contents =
 					gradle.slice(0, idx) + content + gradle.slice(idx);
 				console.log(
@@ -324,10 +327,15 @@ function withAppLovinProjectRepos(config, { mavenRepositories }) {
 
 		// Fallback: create an allprojects block
 		const pluginsMatch = gradle.match(/plugins\s*\{[\s\S]*?\n\}/);
-		const insertAt = pluginsMatch ? pluginsMatch.index + pluginsMatch[0].length : 0;
+		const insertAt = pluginsMatch
+			? pluginsMatch.index + pluginsMatch[0].length
+			: 0;
 		const newBlock = `\n\nallprojects {\n    repositories {\n${content}\n        google()\n        mavenCentral()\n    }\n}\n`;
-		config.modResults.contents = gradle.slice(0, insertAt) + newBlock + gradle.slice(insertAt);
-		console.log("[AppLovinMediationAdapters] ✓ Created allprojects block in build.gradle");
+		config.modResults.contents =
+			gradle.slice(0, insertAt) + newBlock + gradle.slice(insertAt);
+		console.log(
+			"[AppLovinMediationAdapters] ✓ Created allprojects block in build.gradle",
+		);
 		return config;
 	});
 }
@@ -354,12 +362,16 @@ function withAppLovinAdapterPods(config, { iosPods }) {
 	return withPodfile(config, (config) => {
 		const podfile = config.modResults.contents;
 		if (podfile.includes("# AppLovin MAX Mediation Adapter Pods")) {
-			console.log("[AppLovinMediationAdapters] iOS pods already present, skipping");
+			console.log(
+				"[AppLovinMediationAdapters] iOS pods already present, skipping",
+			);
 			return config;
 		}
 
 		const podLines = iosPods
-			.map((p) => (p.version ? `  pod '${p.name}', '${p.version}'` : `  pod '${p.name}'`))
+			.map((p) =>
+				p.version ? `  pod '${p.name}', '${p.version}'` : `  pod '${p.name}'`,
+			)
 			.join("\n");
 		const block = `\n  # AppLovin MAX Mediation Adapter Pods\n${podLines}\n`;
 

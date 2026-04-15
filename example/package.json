@@ -1,32 +1,32 @@
 {
-  "name": "expo-applovin-max-example",
-  "version": "0.0.1",
-  "private": true,
-  "main": "expo-router/entry",
-  "scripts": {
-    "start": "expo start",
-    "android": "expo run:android",
-    "ios": "expo run:ios",
-    "prebuild": "expo prebuild",
-    "build:ios": "eas build --profile production --platform ios --non-interactive",
-    "build:android": "eas build --profile production --platform android --non-interactive"
-  },
-  "dependencies": {
-    "@expo/metro-runtime": "~55.0.9",
-    "@fumitakayamada/expo-applovin-max": "0.1.5-beta.0",
-    "expo": "~55.0.15",
-    "expo-build-properties": "~1.0.10",
-    "expo-router": "~55.0.10",
-    "expo-status-bar": "~55.0.5",
-    "react": "19.2.0",
-    "react-native": "0.83.4",
-    "react-native-applovin-max": "~9.4.1",
-    "react-native-safe-area-context": "~5.7.0",
-    "react-native-screens": "~4.21.0"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.29.0",
-    "@types/react": "~19.2.0",
-    "typescript": "~5.9.2"
-  }
+	"name": "expo-applovin-max-example",
+	"version": "0.0.1",
+	"private": true,
+	"main": "expo-router/entry",
+	"scripts": {
+		"start": "expo start",
+		"android": "expo run:android",
+		"ios": "expo run:ios",
+		"prebuild": "expo prebuild",
+		"build:ios": "eas build --profile production --platform ios --non-interactive",
+		"build:android": "eas build --profile production --platform android --non-interactive"
+	},
+	"dependencies": {
+		"@expo/metro-runtime": "~55.0.9",
+		"@fumitakayamada/expo-applovin-max": "0.1.5-beta.0",
+		"expo": "~55.0.15",
+		"expo-build-properties": "~1.0.10",
+		"expo-router": "~55.0.10",
+		"expo-status-bar": "~55.0.5",
+		"react": "19.2.0",
+		"react-native": "0.83.4",
+		"react-native-applovin-max": "~9.4.1",
+		"react-native-safe-area-context": "~5.7.0",
+		"react-native-screens": "~4.21.0"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.29.0",
+		"@types/react": "~19.2.0",
+		"typescript": "~5.9.2"
+	}
 }

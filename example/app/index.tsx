@@ -60,9 +60,7 @@ export default function HomeScreen() {
 	return (
 		<View style={styles.container}>
 			<Text style={styles.title}>AppLovin MAX Example</Text>
-			<Text style={styles.subtitle}>
-				@fumitakayamada/expo-applovin-max
-			</Text>
+			<Text style={styles.subtitle}>@fumitakayamada/expo-applovin-max</Text>
 
 			<View style={styles.statusBox}>
 				<Text style={styles.statusLabel}>SDK status</Text>
@@ -88,10 +86,9 @@ export default function HomeScreen() {
 			</Pressable>
 
 			<Text style={styles.hint}>
-				The Mediation Debugger should auto-open on launch. If it didn't,
-				tap the button above. Use it to verify which adapters loaded,
-				whether Ad Review is active, and whether SKAdNetwork IDs are
-				present.
+				The Mediation Debugger should auto-open on launch. If it didn't, tap the
+				button above. Use it to verify which adapters loaded, whether Ad Review
+				is active, and whether SKAdNetwork IDs are present.
 			</Text>
 		</View>
 	);

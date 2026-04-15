@@ -1,46 +1,51 @@
 {
-  "name": "@fumitakayamada/expo-applovin-max",
-  "version": "0.1.5-beta.0",
-  "description": "Expo config plugin for AppLovin MAX: mediation adapters (Android + iOS), Ad Review (Quality Service), and SKAdNetwork IDs. Built for Expo SDK 55.",
-  "main": "plugin/index.js",
-  "types": "plugin/index.d.ts",
-  "files": [
-    "app.plugin.js",
-    "plugin"
-  ],
-  "scripts": {
-    "lint": "echo 'No lint configured'",
-    "test": "echo 'No test configured'"
-  },
-  "keywords": [
-    "expo",
-    "expo-config-plugin",
-    "expo-plugin",
-    "applovin",
-    "applovin-max",
-    "max-mediation",
-    "ad-review",
-    "applovin-quality-service",
-    "skadnetwork",
-    "react-native",
-    "ads",
-    "monetization",
-    "expo-sdk-55"
-  ],
-  "author": "Fumitaka Yamada <https://github.com/FumitakaYamada>",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/FumitakaYamada/expo-applovin-max.git"
-  },
-  "homepage": "https://github.com/FumitakaYamada/expo-applovin-max#readme",
-  "bugs": {
-    "url": "https://github.com/FumitakaYamada/expo-applovin-max/issues"
-  },
-  "peerDependencies": {
-    "expo": ">=54.0.0"
-  },
-  "dependencies": {
-    "@expo/config-plugins": ">=9.0.0"
-  }
+	"name": "@fumitakayamada/expo-applovin-max",
+	"version": "0.1.5-beta.0",
+	"description": "Expo config plugin for AppLovin MAX: mediation adapters (Android + iOS), Ad Review (Quality Service), and SKAdNetwork IDs. Built for Expo SDK 55.",
+	"main": "plugin/index.js",
+	"types": "plugin/index.d.ts",
+	"files": [
+		"app.plugin.js",
+		"plugin"
+	],
+	"scripts": {
+		"check": "biome check .",
+		"fix": "biome check . --write",
+		"format": "biome format . --write",
+		"test": "echo 'No test configured'"
+	},
+	"keywords": [
+		"expo",
+		"expo-config-plugin",
+		"expo-plugin",
+		"applovin",
+		"applovin-max",
+		"max-mediation",
+		"ad-review",
+		"applovin-quality-service",
+		"skadnetwork",
+		"react-native",
+		"ads",
+		"monetization",
+		"expo-sdk-55"
+	],
+	"author": "Fumitaka Yamada <https://github.com/FumitakaYamada>",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/FumitakaYamada/expo-applovin-max.git"
+	},
+	"homepage": "https://github.com/FumitakaYamada/expo-applovin-max#readme",
+	"bugs": {
+		"url": "https://github.com/FumitakaYamada/expo-applovin-max/issues"
+	},
+	"peerDependencies": {
+		"expo": ">=54.0.0"
+	},
+	"dependencies": {
+		"@expo/config-plugins": ">=9.0.0"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.4.12"
+	}
 }

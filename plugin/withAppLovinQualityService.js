@@ -66,7 +66,9 @@ function withAppLovinQualityServiceProjectGradle(config) {
 		let contents = config.modResults.contents;
 
 		if (contents.includes(MARKER_PROJECT)) {
-			console.log("[AppLovinQualityService] Project build.gradle already patched");
+			console.log(
+				"[AppLovinQualityService] Project build.gradle already patched",
+			);
 			return config;
 		}
 
@@ -92,7 +94,8 @@ function withAppLovinQualityServiceProjectGradle(config) {
 		}
 		const reposEnd = reposMatch.index + reposMatch[0].length;
 		const reposInsert = `\n        // ${MARKER_PROJECT} Repositories\n        maven { url '${APPLOVIN_MAVEN_URL}' }`;
-		contents = contents.slice(0, reposEnd) + reposInsert + contents.slice(reposEnd);
+		contents =
+			contents.slice(0, reposEnd) + reposInsert + contents.slice(reposEnd);
 
 		// Inject the classpath into buildscript { dependencies { ... } }. The
 		// first `dependencies {` inside buildscript is the right target.
@@ -107,7 +110,8 @@ function withAppLovinQualityServiceProjectGradle(config) {
 		}
 		const depsEnd = depsMatch.index + depsMatch[0].length;
 		const depsInsert = `\n        // ${MARKER_PROJECT} Classpath\n        classpath '${APPLOVIN_GRADLE_CLASSPATH}'`;
-		contents = contents.slice(0, depsEnd) + depsInsert + contents.slice(depsEnd);
+		contents =
+			contents.slice(0, depsEnd) + depsInsert + contents.slice(depsEnd);
 
 		config.modResults.contents = contents;
 		console.log(
@@ -186,12 +190,20 @@ function ensureXcframeworkLinked(platformProjectRoot) {
 		.readdirSync(platformProjectRoot)
 		.find((name) => name.endsWith(".xcodeproj"));
 	if (!xcodeprojName) {
-		console.warn("[AppLovinQualityService] No .xcodeproj found in ios/ directory");
+		console.warn(
+			"[AppLovinQualityService] No .xcodeproj found in ios/ directory",
+		);
 		return;
 	}
-	const pbxprojPath = path.join(platformProjectRoot, xcodeprojName, "project.pbxproj");
+	const pbxprojPath = path.join(
+		platformProjectRoot,
+		xcodeprojName,
+		"project.pbxproj",
+	);
 	if (!fs.existsSync(pbxprojPath)) {
-		console.warn(`[AppLovinQualityService] project.pbxproj not found at ${pbxprojPath}`);
+		console.warn(
+			`[AppLovinQualityService] project.pbxproj not found at ${pbxprojPath}`,
+		);
 		return;
 	}
 
@@ -212,17 +224,21 @@ function ensureXcframeworkLinked(platformProjectRoot) {
 		}
 	}
 	if (!mainTargetKey) {
-		console.warn("[AppLovinQualityService] No application target found in xcodeproj");
+		console.warn(
+			"[AppLovinQualityService] No application target found in xcodeproj",
+		);
 		return;
 	}
 
 	const frameworkName = "AppLovinQualityService.xcframework";
 
 	// Check Link Binary With Libraries
-	const frameworksBuildPhase = project.pbxFrameworksBuildPhaseObj(mainTargetKey);
+	const frameworksBuildPhase =
+		project.pbxFrameworksBuildPhaseObj(mainTargetKey);
 	const alreadyLinked =
-		frameworksBuildPhase?.files?.some((f) => (f.comment || "").includes(frameworkName)) ??
-		false;
+		frameworksBuildPhase?.files?.some((f) =>
+			(f.comment || "").includes(frameworkName),
+		) ?? false;
 
 	// Check Embed Frameworks
 	const copyFilesBuildPhase =
@@ -243,7 +259,9 @@ function ensureXcframeworkLinked(platformProjectRoot) {
 	);
 
 	if (alreadyLinked && alreadyEmbedded) {
-		console.log("[AppLovinQualityService] ✓ xcframework is already linked and embedded");
+		console.log(
+			"[AppLovinQualityService] ✓ xcframework is already linked and embedded",
+		);
 		return;
 	}
 
@@ -336,11 +354,15 @@ function withAppLovinQualityServiceIOS(config, { iosSetupScriptPath }) {
 				"[AppLovinQualityService] Running installer: ruby AppLovinQualityServiceSetup-ios.rb install",
 			);
 			try {
-				execFileSync("ruby", ["AppLovinQualityServiceSetup-ios.rb", "install"], {
-					cwd: platformProjectRoot,
-					stdio: "inherit",
-					env: process.env,
-				});
+				execFileSync(
+					"ruby",
+					["AppLovinQualityServiceSetup-ios.rb", "install"],
+					{
+						cwd: platformProjectRoot,
+						stdio: "inherit",
+						env: process.env,
+					},
+				);
 				console.log(
 					"[AppLovinQualityService] ✓ Installer completed (app.xcodeproj modified)",
 				);
