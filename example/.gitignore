@@ -1,0 +1,41 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Lockfile — the example is a reference template, not a shared
+# monorepo package. Users bring their own pnpm version and regenerate
+# the lockfile when they run `pnpm install`. Committing it here would
+# lock downstream users to stale dep versions for no benefit.
+pnpm-lock.yaml
+
+# Build output
+.expo/
+ios/
+android/
+web-build/
+dist/
+
+# OS
+.DS_Store
+*.log
+
+# Native build artifacts
+*.ipa
+*.aab
+*.apk
+
+# Vendor tarballs (regenerated locally; do not commit)
+vendor/*.tgz
+
+# AppLovin Quality Service iOS setup script
+# This file contains an embedded API key tied to the publisher's AppLovin
+# account. Each developer must download their own copy from the AppLovin
+# dashboard (MAX → Ad Review → Download Setup Script iOS) and place it
+# at the path below. NEVER commit this file to a public repo.
+scripts/AppLovinQualityServiceSetup-ios.rb
+
+# Local environment overrides — for storing the AppLovin Report Key etc.
+# without committing them. The example app reads them via app.config.ts.
+.env
+.env.local
+.env.*.local
