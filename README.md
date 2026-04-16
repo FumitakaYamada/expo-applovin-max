@@ -38,6 +38,8 @@ Why this library exists:
 
 ## Install
 
+### 1. Install the packages
+
 ```bash
 # pnpm (recommended)
 pnpm add @fumitakayamada/expo-applovin-max
@@ -55,9 +57,24 @@ You also need the AppLovin MAX React Native SDK to actually *show* ads. This plu
 pnpm add react-native-applovin-max
 ```
 
+### 2. (Optional) Download the iOS Ad Review setup script
+
+If you want **Ad Review (Quality Service)** on iOS:
+
+1. Open the AppLovin dashboard: **MAX → Ad Review → Download Setup Script (iOS)**
+2. Save the downloaded `AppLovinQualityServiceSetup-ios.rb` into your project (e.g. `scripts/AppLovinQualityServiceSetup-ios.rb`)
+3. **Add it to `.gitignore`** — the script contains an account-specific API key embedded at download time. Do NOT commit it to public repos.
+
+```gitignore
+# .gitignore
+scripts/AppLovinQualityServiceSetup-ios.rb
+```
+
+If you skip this step, iOS Ad Review is simply disabled — everything else (mediation adapters, SKAdNetwork, Android Ad Review) still works.
+
 ## Quick start
 
-> **⚠️ JS / TS config required.** This plugin's recommended usage imports `DEFAULT_SKADNETWORK_IDENTIFIERS` from the library, which only works in `app.config.js` / `app.config.ts`, not in static `app.json`. If you're still on `app.json`, rename it to `app.config.js` first — the contents stay the same.
+> **💡 `app.config.js` / `app.config.ts` recommended but not required.** Using a JS/TS config lets you `import { DEFAULT_SKADNETWORK_IDENTIFIERS }` from the library, which is the easiest way to inject the bundled SKAdNetwork list. However, if you prefer `app.json`, you can still use this plugin — just pass the `skAdNetworkItems` array manually instead of importing the constant. See the [app.json example](#appjson-example) below.
 
 Minimal `app.config.ts` — pick mediation networks via `networks`, plus the bundled SKAdNetwork list:
 
@@ -133,6 +150,34 @@ plugins: [
 ```
 
 > ⚠️ **Security note:** The iOS setup script contains an API key embedded at download time that identifies your AppLovin account. Treat it like a secret: add it to a private repo, a `.gitignore`d location, or encrypt it. Do NOT commit it to public repos.
+
+### app.json example
+
+If you prefer to stay on static `app.json`, you can use this plugin without any imports — just list the SKAdNetwork identifiers manually:
+
+```json
+{
+  "expo": {
+    "plugins": [
+      [
+        "@fumitakayamada/expo-applovin-max",
+        {
+          "networks": ["pangle", "mintegral", "liftoff", "meta", "google", "unity"],
+          "admobAppIdAndroid": "ca-app-pub-XXXXXXXX~YYYYYYYY",
+          "admobAppIdIOS": "ca-app-pub-XXXXXXXX~ZZZZZZZZ",
+          "skAdNetworkItems": [
+            "cstr6suwn9.skadnetwork",
+            "4fzdc2evr5.skadnetwork",
+            "...paste the full list here..."
+          ]
+        }
+      ]
+    ]
+  }
+}
+```
+
+The trade-off: you lose the convenience of `DEFAULT_SKADNETWORK_IDENTIFIERS` (which bundles 266+ identifiers and stays up to date with library releases) and have to maintain the list yourself. For the full list, see: <https://support.axon.ai/en/max/react-native/overview/skadnetwork>
 
 After adding the plugin, clear any cached native project and rebuild:
 

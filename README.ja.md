@@ -39,6 +39,8 @@
 
 ## インストール
 
+### 1. パッケージをインストール
+
 ```bash
 # pnpm (推奨)
 pnpm add @fumitakayamada/expo-applovin-max
@@ -56,9 +58,24 @@ yarn add @fumitakayamada/expo-applovin-max
 pnpm add react-native-applovin-max
 ```
 
+### 2. (任意) iOS Ad Review セットアップスクリプトをダウンロード
+
+iOS で **Ad Review (Quality Service)** を使いたい場合:
+
+1. AppLovin ダッシュボードを開く: **MAX → Ad Review → Download Setup Script (iOS)**
+2. ダウンロードされた `AppLovinQualityServiceSetup-ios.rb` をプロジェクトに保存 (例: `scripts/AppLovinQualityServiceSetup-ios.rb`)
+3. **`.gitignore` に追加する** — スクリプトにはダウンロード時に埋め込まれたアカウント固有の API key が含まれています。public リポジトリには絶対にコミットしないでください。
+
+```gitignore
+# .gitignore
+scripts/AppLovinQualityServiceSetup-ios.rb
+```
+
+このステップをスキップすると iOS Ad Review が無効になるだけで、他の機能 (mediation adapter、SKAdNetwork、Android Ad Review) は正常に動作します。
+
 ## Quick start
 
-> **⚠️ JS / TS config が必要です。** この plugin の推奨利用方法では library から `DEFAULT_SKADNETWORK_IDENTIFIERS` を import するため、静的な `app.json` では使えず `app.config.js` / `app.config.ts` が必須です。まだ `app.json` を使っている場合、中身をそのままに `app.config.js` にリネームしてください。
+> **💡 `app.config.js` / `app.config.ts` 推奨ですが必須ではありません。** JS/TS config を使うと library から `import { DEFAULT_SKADNETWORK_IDENTIFIERS }` できるため、bundled SKAdNetwork リストの注入が簡単です。ただし `app.json` のまま使うことも可能です — その場合は定数を import する代わりに `skAdNetworkItems` 配列を手動で記述してください。下の [app.json の場合](#appjson-の場合) を参照。
 
 最小限の `app.config.ts` — `networks` で mediation network を選択し、SKAdNetwork の bundled リストを渡すだけ:
 
@@ -134,6 +151,34 @@ plugins: [
 ```
 
 > ⚠️ **セキュリティ注意:** iOS のセットアップスクリプトには、ダウンロード時点で AppLovin アカウント固有の API key が埋め込まれています。シークレットと同じ扱いで管理してください — private リポジトリ、`.gitignore` した場所、あるいは暗号化のいずれかで保護します。**public リポジトリには絶対にコミットしないでください。**
+
+### app.json の場合
+
+静的な `app.json` のままでもこの plugin は使えます — import を使わず、SKAdNetwork の識別子を手動でリストするだけです:
+
+```json
+{
+  "expo": {
+    "plugins": [
+      [
+        "@fumitakayamada/expo-applovin-max",
+        {
+          "networks": ["pangle", "mintegral", "liftoff", "meta", "google", "unity"],
+          "admobAppIdAndroid": "ca-app-pub-XXXXXXXX~YYYYYYYY",
+          "admobAppIdIOS": "ca-app-pub-XXXXXXXX~ZZZZZZZZ",
+          "skAdNetworkItems": [
+            "cstr6suwn9.skadnetwork",
+            "4fzdc2evr5.skadnetwork",
+            "...全リストをここに列挙..."
+          ]
+        }
+      ]
+    ]
+  }
+}
+```
+
+トレードオフ: `DEFAULT_SKADNETWORK_IDENTIFIERS` の便利さ (266 以上の識別子がバンドルされ、library のアップデートに追随する) が使えず、リストを自前で管理する必要があります。全リストはこちらを参照: <https://support.axon.ai/en/max/react-native/overview/skadnetwork>
 
 plugin を追加したら、キャッシュをクリアしてから再ビルドします:
 
