@@ -1,6 +1,6 @@
 {
 	"name": "@fumitakayamada/expo-applovin-max",
-	"version": "0.1.5-beta.0",
+	"version": "0.1.0",
 	"description": "Expo config plugin for AppLovin MAX: mediation adapters (Android + iOS), Ad Review (Quality Service), and SKAdNetwork IDs. Built for Expo SDK 55.",
 	"main": "plugin/index.js",
 	"types": "plugin/index.d.ts",
