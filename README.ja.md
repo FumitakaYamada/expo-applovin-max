@@ -8,6 +8,7 @@
 
 [![npm version](https://img.shields.io/npm/v/@fumitakayamada/expo-applovin-max.svg)](https://www.npmjs.com/package/@fumitakayamada/expo-applovin-max)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Sponsor](https://img.shields.io/github/sponsors/FumitakaYamada?logo=GitHub&label=Sponsor&color=ea4aaa)](https://github.com/sponsors/FumitakaYamada)
 
 `app.config.ts` に plugin を 1 行追加するだけで **AppLovin MAX** を Expo プロジェクトに統合します。既存の Expo plugin ではフォローしきれていなかった、以下の 3 つの統合ペインポイントを end-to-end でカバーします:
 
@@ -35,6 +36,7 @@
 - [トラブルシューティング](#トラブルシューティング)
 - [互換性](#互換性)
 - [Contributing](#contributing)
+- [スポンサー](#スポンサー)
 - [ライセンス](#ライセンス)
 
 ## インストール
@@ -584,6 +586,12 @@ Issue と PR は <https://github.com/FumitakaYamada/expo-applovin-max> で受け
 - Expo SDK バージョンと `expo --version` の出力
 - 該当する EAS Build ログのフェーズ (大抵 `PREBUILD` か `INSTALL_PODS`)
 - 該当する場合は `useFrameworks` の設定
+
+## スポンサー
+
+この plugin が AppLovin MAX の Expo 統合で時間の節約になったら、継続的なメンテナンスのためのサポートをご検討ください:
+
+[![Sponsor FumitakaYamada](https://img.shields.io/github/sponsors/FumitakaYamada?logo=GitHub&label=Sponsor%20%40FumitakaYamada&color=ea4aaa&style=for-the-badge)](https://github.com/sponsors/FumitakaYamada)
 
 ## ライセンス
 

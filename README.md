@@ -8,6 +8,7 @@
 
 [![npm version](https://img.shields.io/npm/v/@fumitakayamada/expo-applovin-max.svg)](https://www.npmjs.com/package/@fumitakayamada/expo-applovin-max)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Sponsor](https://img.shields.io/github/sponsors/FumitakaYamada?logo=GitHub&label=Sponsor&color=ea4aaa)](https://github.com/sponsors/FumitakaYamada)
 
 Integrates **AppLovin MAX** into your Expo project with one plugin entry in `app.config.ts`. Handles the three integration pain points that no existing Expo plugin covers end to end:
 
@@ -34,6 +35,7 @@ Why this library exists:
 - [Troubleshooting](#troubleshooting)
 - [Compatibility](#compatibility)
 - [Contributing](#contributing)
+- [Sponsor](#sponsor)
 - [License](#license)
 
 ## Install
@@ -587,6 +589,12 @@ Issues and PRs welcome at <https://github.com/FumitakaYamada/expo-applovin-max>.
 - Expo SDK version and the output of `expo --version`
 - The relevant EAS Build log phase (usually `PREBUILD` or `INSTALL_PODS`)
 - Your `useFrameworks` setting if applicable
+
+## Sponsor
+
+If this plugin saves you time integrating AppLovin MAX into Expo, please consider supporting continued maintenance:
+
+[![Sponsor FumitakaYamada](https://img.shields.io/github/sponsors/FumitakaYamada?logo=GitHub&label=Sponsor%20%40FumitakaYamada&color=ea4aaa&style=for-the-badge)](https://github.com/sponsors/FumitakaYamada)
 
 ## License
 
