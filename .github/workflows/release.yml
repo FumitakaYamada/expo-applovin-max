@@ -13,16 +13,16 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v5
         with:
           version: 9
 
       # Node 24 ships npm 11.x, which supports Trusted Publisher (OIDC auth).
       # Node 22 only ships npm 10.x and self-upgrading (`npm i -g npm@latest`)
       # breaks mid-install with MODULE_NOT_FOUND on hosted runners.
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: '24'
           cache: pnpm
@@ -50,7 +50,7 @@ jobs:
 
       - name: Create GitHub Release
         if: steps.check.outputs.skip != 'true'
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           generate_release_notes: true
           make_latest: true
