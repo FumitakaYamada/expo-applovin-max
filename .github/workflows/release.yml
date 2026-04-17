@@ -19,14 +19,15 @@ jobs:
         with:
           version: 9
 
+      # Node 24 ships npm 11.x, which supports Trusted Publisher (OIDC auth).
+      # Node 22 only ships npm 10.x and self-upgrading (`npm i -g npm@latest`)
+      # breaks mid-install with MODULE_NOT_FOUND on hosted runners.
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '24'
           cache: pnpm
 
-      # npm 11.5.1+ is required for Trusted Publisher (OIDC auth).
-      # Node 22 ships with npm 10.x, so upgrade explicitly.
-      - run: npm install -g npm@latest
+      - run: node --version && npm --version
 
       - run: pnpm install --frozen-lockfile --ignore-scripts
 
