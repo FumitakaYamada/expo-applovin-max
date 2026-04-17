@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.3] - 2026-04-17
+
+### Documentation
+- Add GitHub Sponsors integration: `.github/FUNDING.yml` for the native
+  Sponsor button on the repo page, plus a Sponsor badge and a dedicated
+  Sponsor section in `README.md` / `README.ja.md` so consumers can find
+  the support link on npmjs.com as well.
+
+### CI
+- Bump release workflow actions to Node 24-runtime versions to silence
+  the "Node.js 20 actions are deprecated" warning:
+  - `actions/checkout` v4 → v6
+  - `pnpm/action-setup` v4 → v5
+  - `actions/setup-node` v4 → v6
+  - `softprops/action-gh-release` v2 → v3
+
 ## [0.1.2] - 2026-04-17
 
 ### Fixed
@@ -41,6 +57,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Bundled `DEFAULT_SKADNETWORK_IDENTIFIERS` covering AppLovin MAX and all
   mediated networks
 
+[0.1.3]: https://github.com/FumitakaYamada/expo-applovin-max/compare/v0.1.2...v0.1.3
 [0.1.2]: https://github.com/FumitakaYamada/expo-applovin-max/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/FumitakaYamada/expo-applovin-max/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/FumitakaYamada/expo-applovin-max/releases/tag/v0.1.0
