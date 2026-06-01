@@ -4,7 +4,7 @@
 
 > **Expo** managed / EAS workflow 向けの、痒いところに手が届くオールインワン **AppLovin MAX** config plugin。
 >
-> **Expo SDK 55 向けに作られ、動作確認済み。** SDK 54 でも動くはずですが、未検証です。
+> **Expo SDK 56 向けに作られ、動作確認済み**（React Native 0.85）。SDK 55 でも確認済み。SDK 54 でも動くはずですが、未検証です。
 
 [![npm version](https://img.shields.io/npm/v/@fumitakayamada/expo-applovin-max.svg)](https://www.npmjs.com/package/@fumitakayamada/expo-applovin-max)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
@@ -486,9 +486,9 @@ AppLovin がインストーラーを、Ruby スクリプトに埋め込まれた
 - adapter 依存を一切追加しない: `androidAdapters: []`、`iosPods: []`
 - サブプラグイン (`withAppLovinMediationAdapters`、`withAppLovinQualityService`、`withSKAdNetwork`) は個別に export もしているので、高度な合成にも使えます。
 
-### なぜ Expo 55 に縛られているの?
+### どの Expo SDK が対象?
 
-厳密には縛られていません。統合ロジックの core は SDK-agnostic ですが、回避対象になっている具体的な落とし穴 (static framework での xcframework linking、Podfile の regex ターゲティング、Gradle 8.x の `dependencyResolutionManagement`) は全て Expo SDK 55 の production ビルドで確認したものです。より古い SDK でも *動くはず*ですが未検証です。
+統合ロジックの core は SDK-agnostic で、prebuild 時にネイティブのビルドファイルを書き換えるだけです。回避対象になっている具体的な落とし穴 (static framework での xcframework linking、Podfile の regex ターゲティング、Gradle 8.x の `dependencyResolutionManagement`) は Expo SDK 55 と SDK 56 (React Native 0.85) の production ビルドで確認済みです。その他の SDK でも *動くはず*ですが未検証です。
 
 ### 既に `@crassaert/applovin-quality-service-expo-plugin` を使っているけど削除して良い?
 
@@ -544,20 +544,21 @@ AppLovin の Maven repo が `buildscript { repositories }` に追加されてい
 
 ### `useFrameworks: "static"` + Firebase の組み合わせ
 
-この plugin と `@react-native-firebase/app` を `useFrameworks: "static"` で組み合わせる場合は、`expo-modules-core@55.0.22+` を使うようにしてください — それより前のバージョンには `#import <React/React-Core-umbrella.h>` が壊れていて static framework で失敗する既知問題があります。この問題はこの library の範囲外で、AppLovin 統合とは別問題です。
+**SDK 55** でこの plugin と `@react-native-firebase/app` を `useFrameworks: "static"` で組み合わせる場合は、`expo-modules-core@55.0.22+` を使うようにしてください — それより前の 55.x には `#import <React/React-Core-umbrella.h>` が壊れていて static framework で失敗する既知問題があります。SDK 56 では修正済みの `expo-modules-core` が同梱されます。この問題はこの library の範囲外で、AppLovin 統合とは別問題です。
 
 ## 互換性
 
 | パッケージバージョン | Expo SDK | React Native | New Architecture | 備考 |
 | --- | --- | --- | --- | --- |
-| 0.1.x | 55 (確認済み) | 0.83.x | ✅ 必須 (Expo 55 が必須化) | メインターゲット。production で稼働中。 |
-| 0.1.x | 54 | 0.76.x | ✅ optional | 動作する見込みだが未検証。問題があれば issue を上げてください。 |
+| 0.2.x | 56 (確認済み) | 0.85.x | ✅ 必須 | メインターゲット。production で確認済み。 |
+| 0.1.x–0.2.x | 55 (確認済み) | 0.83.x | ✅ 必須 | production で確認済み。 |
+| 0.1.x–0.2.x | 54 | 0.76.x | ✅ optional | 動作する見込みだが未検証。問題があれば issue を上げてください。 |
 
-`peerDependencies` は `expo >= 54.0.0` を要求していますが、実動作確認は SDK 55 に限られています。より古い SDK を使っていて公式サポートが欲しい場合は issue (あるいは PR) を出してください。
+`peerDependencies` は `expo >= 54.0.0` を要求します。実動作確認は SDK 55 と SDK 56 で行っています。より古い SDK を使っていて公式サポートが欲しい場合は issue (あるいは PR) を出してください。
 
 ### New Architecture
 
-この plugin は Expo SDK 55 が必須化した New Architecture に対して**透過的**です。prebuild 時にビルド設定ファイル (`AndroidManifest.xml`、`Info.plist`、`Podfile`、`build.gradle`) を書き換えるだけで、React Native の runtime コードを追加・変更していません。New Architecture の interop layer (Fabric / TurboModules / codegen) が壊せるものが何もない、ということです。
+この plugin は近年の Expo SDK (55 / 56) が必須化した New Architecture に対して**透過的**です。prebuild 時にビルド設定ファイル (`AndroidManifest.xml`、`Info.plist`、`Podfile`、`build.gradle`) を書き換えるだけで、React Native の runtime コードを追加・変更していません。New Architecture の interop layer (Fabric / TurboModules / codegen) が壊せるものが何もない、ということです。
 
 より古い SDK からアップグレードする場合に気をつけるのは、使っている AppLovin MAX React Native SDK (`react-native-applovin-max` か他のパッケージ) 自体が NewArch 対応かどうかだけです。そこはこの plugin の範囲外です。
 

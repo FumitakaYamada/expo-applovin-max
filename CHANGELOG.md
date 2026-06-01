@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - 2026-06-01
+
+### Added
+- Verified support for **Expo SDK 56** (React Native 0.85). The config plugin's
+  prebuild mods (AdMob App ID in `AndroidManifest.xml`, mediation adapter
+  dependencies, AppLovin Quality Service Gradle wiring, Maven repos, and
+  SKAdNetwork IDs) were confirmed to apply on an Expo SDK 56 production app.
+
+### Changed
+- `package.json` `description` and `keywords` now reference Expo SDK 56.
+- `example/` upgraded to Expo SDK 56 / React Native 0.85.
+- `README.md` / `README.ja.md`: compatibility table and SDK notes updated for SDK 56.
+
+### Notes
+- No plugin code changes were required — the plugin is SDK-agnostic (it only
+  modifies native build files at prebuild time). SDK 55 remains verified.
+
 ## [0.1.3] - 2026-04-17
 
 ### Documentation
@@ -57,6 +74,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Bundled `DEFAULT_SKADNETWORK_IDENTIFIERS` covering AppLovin MAX and all
   mediated networks
 
+[0.2.0]: https://github.com/FumitakaYamada/expo-applovin-max/compare/v0.1.3...v0.2.0
 [0.1.3]: https://github.com/FumitakaYamada/expo-applovin-max/compare/v0.1.2...v0.1.3
 [0.1.2]: https://github.com/FumitakaYamada/expo-applovin-max/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/FumitakaYamada/expo-applovin-max/compare/v0.1.0...v0.1.1

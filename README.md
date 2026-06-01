@@ -4,7 +4,7 @@
 
 > The missing all-in-one **AppLovin MAX** config plugin for **Expo** managed / EAS workflows.
 >
-> **Built and tested for Expo SDK 55.** Should also work on SDK 54 (unverified).
+> **Built and tested for Expo SDK 56** (React Native 0.85). Also verified on SDK 55. Should work on SDK 54 (unverified).
 
 [![npm version](https://img.shields.io/npm/v/@fumitakayamada/expo-applovin-max.svg)](https://www.npmjs.com/package/@fumitakayamada/expo-applovin-max)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
@@ -489,9 +489,9 @@ Yes.
 - To skip adding any adapter dependencies: `androidAdapters: []`, `iosPods: []`
 - The sub-plugins are also exported individually (`withAppLovinMediationAdapters`, `withAppLovinQualityService`, `withSKAdNetwork`) for advanced composition.
 
-### Why is this tied to Expo 55?
+### Which Expo SDK does this target?
 
-It isn't, strictly. The core integration logic is SDK-agnostic, but the specific pitfalls it works around (xcframework linking with static frameworks, Podfile regex targeting, Gradle 8.x `dependencyResolutionManagement`) were all verified against Expo SDK 55 production builds. Earlier SDKs *should* work but are unverified.
+The core integration logic is SDK-agnostic — it only edits native build files at prebuild time. The specific pitfalls it works around (xcframework linking with static frameworks, Podfile regex targeting, Gradle 8.x `dependencyResolutionManagement`) have been verified against Expo SDK 55 and SDK 56 (React Native 0.85) production builds. Other SDKs *should* work but are unverified.
 
 ### I already have `@crassaert/applovin-quality-service-expo-plugin`. Can I remove it?
 
@@ -547,20 +547,21 @@ Individual adapters occasionally have transient issues. Try:
 
 ### `useFrameworks: "static"` + Firebase combo
 
-If you're combining this plugin with `@react-native-firebase/app` and using `useFrameworks: "static"`, make sure you're on `expo-modules-core@55.0.22+` — earlier versions have a broken `#import <React/React-Core-umbrella.h>` that fails with static frameworks. This library does not fix that issue; it's separate from AppLovin integration.
+If you're combining this plugin with `@react-native-firebase/app` and using `useFrameworks: "static"` on **SDK 55**, make sure you're on `expo-modules-core@55.0.22+` — earlier 55.x versions have a broken `#import <React/React-Core-umbrella.h>` that fails with static frameworks. SDK 56 ships a fixed `expo-modules-core`. This library does not fix that issue; it's separate from AppLovin integration.
 
 ## Compatibility
 
 | Package version | Expo SDK | React Native | New Architecture | Notes |
 | --- | --- | --- | --- | --- |
-| 0.1.x | 55 (verified) | 0.83.x | ✅ required (Expo 55 mandates it) | Primary target. Used in production. |
-| 0.1.x | 54 | 0.76.x | ✅ optional | Expected to work, unverified. File an issue if you hit problems. |
+| 0.2.x | 56 (verified) | 0.85.x | ✅ required | Primary target. Verified in production. |
+| 0.1.x–0.2.x | 55 (verified) | 0.83.x | ✅ required | Verified in production. |
+| 0.1.x–0.2.x | 54 | 0.76.x | ✅ optional | Expected to work, unverified. File an issue if you hit problems. |
 
-`peerDependencies` requires `expo >= 54.0.0` but the library is only actively verified against SDK 55. Post an issue (or PR) if you use an older SDK and want official support.
+`peerDependencies` requires `expo >= 54.0.0`. The library is actively verified against SDK 55 and SDK 56. Post an issue (or PR) if you use an older SDK and want official support.
 
 ### New Architecture
 
-This plugin is **transparent to the New Architecture** mandated by Expo SDK 55. It only modifies build configuration files (`AndroidManifest.xml`, `Info.plist`, `Podfile`, `build.gradle`) at prebuild time — it does not add or modify any React Native runtime code. There is nothing for the New Architecture interop layer (Fabric / TurboModules / codegen) to break.
+This plugin is **transparent to the New Architecture** mandated by recent Expo SDKs (55 and 56). It only modifies build configuration files (`AndroidManifest.xml`, `Info.plist`, `Podfile`, `build.gradle`) at prebuild time — it does not add or modify any React Native runtime code. There is nothing for the New Architecture interop layer (Fabric / TurboModules / codegen) to break.
 
 If you're upgrading from an older SDK, the only thing to make sure of is that your AppLovin MAX React Native SDK version (`react-native-applovin-max` or whichever package you use) is itself NewArch-compatible. That's outside the scope of this plugin.
 
